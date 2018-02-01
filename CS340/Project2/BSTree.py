@@ -35,10 +35,10 @@ class Tree():
         else:
             tNode.rChild = iNode
 
-        if self.root == iNode:
-            print("Added Child " + str(iNode.key) + " at Root")
-        else:
-            print("Added Child " + str(iNode.key) + ": Parent" + str(iNode.parent.key))
+        # if self.root == iNode:
+        #     print("Added Child " + str(iNode.key) + " at Root")
+        # else:
+        #     print("Added Child " + str(iNode.key) + ": Parent" + str(iNode.parent.key))
 
         return iNode
 

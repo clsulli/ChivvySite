@@ -1,5 +1,7 @@
 from BSTree import Tree
 from BSNode import Node
+from RBTree import RBTree
+from RBNode import RBNode
 
 #Save Input File to Array
 def fileToArray(file):
@@ -10,25 +12,7 @@ def fileToArray(file):
 
     return tempArr
 
-#SelSort
-# #Select the Sort Method
-# def selectSort():
-#     print("Select Sorting Algorithm:")
-#     print("     (a) Insertion Sort")
-#     print("     (b) Merge Sort")
-#     print("     (c) Heap Sort")
-#
-#     choice = input(">> ")
-#
-#     if choice == "a" or choice == "A":
-#         return 1
-#     elif choice == "b" or choice == "B":
-#         return 2
-#     elif choice == "c" or choice == "C":
-#         return 3
-
 #Select File Size
-
 def selectSize():
     print("Select Size:")
     print("     (a) 30K")
@@ -63,6 +47,7 @@ def selectPorS():
         elif choice == "b" or choice == "B":
             return 2
 
+#Set the Current File
 def setCurrFile(type, size):
     # Init Dependencies
     perm30K = "Wordlists/perm30K.txt"
@@ -100,9 +85,29 @@ def setCurrFile(type, size):
 
     return currFile
 
+#Build a Binary Search Tree
 def buildBST(tree, arr):
     for iter in range(0,len(arr)):
         tree.insert(Node(arr[iter]))
+
+#Allow User to Search Specific Tree
+def searchForWord(tree):
+    stopFlag = 0
+
+    while stopFlag != 1:
+        print("     Enter word to search for: ")
+        lookingFor = input(">> ")
+        tree.search(lookingFor)
+        print("     Keep Searching? [Y/N]")
+        choice = input(">> ")
+
+        if choice == "y" or choice == "Y":
+            stopFlag = 0
+        elif choice == "n" or choice == "N":
+            stopFlag = 1
+            print("Exiting...")
+        else:
+            stopFlag = 1
 
 ##MAIN##
 size = selectSize()
@@ -111,31 +116,10 @@ cFile = setCurrFile(type, size)
 cFileArr = fileToArray(cFile)
 
 cFileBST = Tree()
+
+
 buildBST(cFileBST, cFileArr)
-cFileBST.search("ORTHOPTERANS")
-
-
-
-# #String Testing
-# bstTree.insert(Node("A"))
-# bstTree.insert(Node("B"))
-# bstTree.insert(Node("D"))
-# bstTree.insert(Node("C"))
-# bstTree.insert(Node("F"))
-# bstTree.insert(Node("Z"))
-# bstTree.search("A")
-# bstTree.search("H")
-
-##Integer Testing
-# bstTree.insert(Node(25))
-# bstTree.insert(Node(31))
-# bstTree.insert(Node(18))
-# bstTree.insert(Node(17))
-# bstTree.insert(Node(16))
-# bstTree.insert(Node(19))
-# bstTree.search(45)
-# bstTree.search(25)
-# bstTree.search(19)
+searchForWord(cFileBST)
 
 
 
