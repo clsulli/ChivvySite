@@ -1,7 +1,8 @@
 from BSTree import Tree
 from BSNode import Node
-from RBTree import RBTree
-from RBNode import RBNode
+from RBTree import RnBTree
+from RBNode import RnBNode
+import time
 
 #Save Input File to Array
 def fileToArray(file):
@@ -47,6 +48,18 @@ def selectPorS():
         elif choice == "b" or choice == "B":
             return 2
 
+def selectMethod():
+    print("Sort File with BST or Red Black BST?:")
+    print("     (a) BST")
+    print("     (b) Red Black BST")
+
+    choice = input(">> ")
+
+    if choice == "a" or choice == "A":
+        return 1
+    elif choice == "b" or choice == "B":
+        return 2
+
 #Set the Current File
 def setCurrFile(type, size):
     # Init Dependencies
@@ -90,6 +103,26 @@ def buildBST(tree, arr):
     for iter in range(0,len(arr)):
         tree.insert(Node(arr[iter]))
 
+def buildRBBST(tree, arr):
+    for iter in range(0,len(arr)):
+        tree.insert(RnBNode(arr[iter]))
+
+
+def printInOrder(cNode, arr):
+
+    if cNode:
+        printInOrder(cNode.lChild, arr)
+        if cNode.key != None:
+            arr.append(cNode.key)
+        printInOrder(cNode.rChild, arr)
+
+    return arr
+
+def writeToFile(file, arr):
+    fileO = open(file, 'w')
+    for item in arr:
+        fileO.write("%s\n" % item)
+
 #Allow User to Search Specific Tree
 def searchForWord(tree):
     stopFlag = 0
@@ -112,14 +145,34 @@ def searchForWord(tree):
 ##MAIN##
 size = selectSize()
 type = selectPorS()
+meth = selectMethod()
+
 cFile = setCurrFile(type, size)
 cFileArr = fileToArray(cFile)
 
-cFileBST = Tree()
+if meth == 1:
+    cFileBST = Tree()
+    startTime = time.clock()
+    buildBST(cFileBST, cFileArr)
+    finTime = time.clock() - startTime
+    tempArr = []
+    outputArr = printInOrder(cFileBST.root, tempArr)
+    writeToFile('outputSorted.txt', outputArr)
+    print("Output File stored at /outputSorted.txt.")
+    print("Binary Search Tree took " + str(finTime) + " Seconds to build and sort.")
+    searchForWord(cFileBST)
 
-
-buildBST(cFileBST, cFileArr)
-searchForWord(cFileBST)
+elif meth == 2:
+    cFileRBBST = RnBTree()
+    startTime = time.clock()
+    buildRBBST(cFileRBBST, cFileArr)
+    finTime = time.clock() - startTime
+    tempArr = []
+    outputArr = printInOrder(cFileRBBST.root, tempArr)
+    writeToFile('outputSorted.txt', outputArr)
+    print("Output File stored at /outputSorted.txt.")
+    print("Binary Search Tree took " + str(finTime) + " Seconds to build and sort.")
+    searchForWord(cFileRBBST)
 
 
 

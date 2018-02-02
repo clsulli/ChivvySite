@@ -1,55 +1,47 @@
-from RBNode import RBNode
+import Properties
 
-class RBTree():
+class RnBTree():
 
-    RED = 1
-    BLACK = 0
-
-    NIL = RBNode(None, BLACK)
-
-    def __init__(self, root=None):
-        self.root = root
+    def __init__(self, root=None, NIL=None):
+        self.root = Properties.createNode(None)
+        self.NIL = Properties.createNILNode()
+        self.root = self.NIL
 
     def insertFixup(self, iNode):
-        RED = 1
-        BLACK = 0
 
-        while iNode.parent.color == RED:
+        while iNode.parent.color == Properties.RED:
             if iNode.parent == iNode.parent.parent.lChild:
                 tNode = iNode.parent.parent.rChild
-                if tNode.color == RED:
-                    iNode.parent.color = BLACK
-                    tNode.color = BLACK
-                    iNode.parent.parent.color = RED
+                if tNode.color == Properties.RED:
+                    iNode.parent.color = Properties.BLACK
+                    tNode.color = Properties.BLACK
+                    iNode.parent.parent.color = Properties.RED
                     iNode = iNode.parent.parent
                 else:
                     if iNode == iNode.parent.rChild:
                         iNode = iNode.parent
                         self.leftRotate(iNode)
-                    iNode.parent.color = BLACK
-                    iNode.parent.parent.color = RED
+                    iNode.parent.color = Properties.BLACK
+                    iNode.parent.parent.color = Properties.RED
                     self.rightRotate(iNode.parent.parent)
             else:
                 tNode = iNode.parent.parent.lChild
-                if tNode.color == RED:
-                    iNode.parent.color = BLACK
-                    tNode.color = BLACK
-                    iNode.parent.parent.color = RED
+                if tNode.color == Properties.RED:
+                    iNode.parent.color = Properties.BLACK
+                    tNode.color = Properties.BLACK
+                    iNode.parent.parent.color = Properties.RED
                     iNode = iNode.parent.parent
                 else:
                     if iNode == iNode.parent.lChild:
                         iNode = iNode.parent
                         self.rightRotate(iNode)
-                    iNode.parent.color = BLACK
-                    iNode.parent.parent.color = RED
+                    iNode.parent.color = Properties.BLACK
+                    iNode.parent.parent.color = Properties.RED
                     self.leftRotate(iNode.parent.parent)
 
-        self.root.color = BLACK
+        self.root.color = Properties.BLACK
 
     def insert(self, iNode):
-
-        BLACK = 0
-        RED = 1
 
         #DESCRIPTION
             #If BST is empty
@@ -58,8 +50,8 @@ class RBTree():
                 # runs down the tree until reaching None, sets the parent of insert Node to be 1 level
                 # higher, then checks if iNode is less than or greater than parent and assigns it lChild or rChild
 
-        cNode = self.root#x
         tNode = self.NIL #y
+        cNode = self.root#x
 
         while cNode != self.NIL:
 
@@ -81,7 +73,7 @@ class RBTree():
 
         iNode.rChild = self.NIL
         iNode.lChild = self.NIL
-        iNode.color = RED
+        iNode.color = Properties.RED
 
         self.insertFixup(iNode)
 
@@ -95,13 +87,13 @@ class RBTree():
     def search(self, lookingFor):
         cNode = self.root
 
-        while cNode != None and lookingFor != cNode.key:
+        while cNode != self.NIL and lookingFor != cNode.key:
             if lookingFor < cNode.key:
                 cNode = cNode.lChild
             elif lookingFor > cNode.key:
                 cNode = cNode.rChild
 
-        if cNode == None:
+        if cNode == self.NIL:
             result = str(lookingFor) + " was not found in the Tree."
         elif cNode.key == lookingFor:
             result = str(lookingFor) + " was found in the Tree."
@@ -122,35 +114,33 @@ class RBTree():
         tNode.parent = cNode.parent
         if cNode.parent == self.NIL:
             self.root = tNode
+        elif cNode == cNode.parent.lChild:
+            cNode.parent.lChild = tNode
         else:
-            if cNode == cNode.parent.lChild:
-                cNode.parent.lChild = tNode
-            else:
-                cNode.parent.rChild = tNode
+            cNode.parent.rChild = tNode
 
         tNode.lChild = cNode
         cNode.parent = tNode
 
-    def rightRotate(self, cNode):
+    def rightRotate(self, tNode):
         #tNode = y
         #iNode = z
         #cNode = x
 
-        tNode = cNode.lChild
-        cNode.lChild = tNode.rChild
-        if tNode.rChild == self.NIL:
-            tNode.rChild.parent = cNode
-        tNode.parent = cNode.parent
-        if cNode.parent == self.NIL:
-            self.root = tNode
-        else:
-            if cNode == cNode.parent.rChild:
-                cNode.parent.rChild = tNode
-            else:
-                cNode.parent.lChild = tNode
+        cNode = tNode.lChild
+        tNode.lChild = cNode.rChild
 
-        tNode.rChild = cNode
-        cNode.parent = tNode
+        if cNode.rChild != self.NIL:
+            cNode.rChild.parent = tNode
+        cNode.parent = tNode.parent
+        if tNode.parent == self.NIL:
+            self.root = cNode
+        elif tNode == tNode.parent.rChild:
+            tNode.parent.rChild = cNode
+        else:
+            tNode.parent.lChild = cNode
+        cNode.rChild = tNode
+        tNode.parent = cNode
 
 
 
