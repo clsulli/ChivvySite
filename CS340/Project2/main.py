@@ -107,7 +107,6 @@ def buildRBBST(tree, arr):
     for iter in range(0,len(arr)):
         tree.insert(RnBNode(arr[iter]))
 
-
 def printInOrder(cNode, arr):
 
     if cNode:
@@ -115,6 +114,14 @@ def printInOrder(cNode, arr):
         if cNode.key != None:
             arr.append(cNode.key)
         printInOrder(cNode.rChild, arr)
+
+    return arr
+
+def printInOrderSorted(cNode, arr):
+
+    while cNode != None:
+        arr.append(cNode.key)
+        cNode = cNode.rChild
 
     return arr
 
@@ -150,13 +157,19 @@ meth = selectMethod()
 cFile = setCurrFile(type, size)
 cFileArr = fileToArray(cFile)
 
+
 if meth == 1:
     cFileBST = Tree()
     startTime = time.clock()
     buildBST(cFileBST, cFileArr)
     finTime = time.clock() - startTime
     tempArr = []
-    outputArr = printInOrder(cFileBST.root, tempArr)
+    ##Workaround to get file to write.  If the file is sorted, I hit the recursion depth limit..
+    if type == 2:
+        outputArr = printInOrderSorted(cFileBST.root, tempArr)
+    else:
+        outputArr = printInOrder(cFileBST.root, tempArr)
+
     writeToFile('outputSorted.txt', outputArr)
     print("Output File stored at /outputSorted.txt.")
     print("Binary Search Tree took " + str(finTime) + " Seconds to build and sort.")
@@ -171,7 +184,7 @@ elif meth == 2:
     outputArr = printInOrder(cFileRBBST.root, tempArr)
     writeToFile('outputSorted.txt', outputArr)
     print("Output File stored at /outputSorted.txt.")
-    print("Binary Search Tree took " + str(finTime) + " Seconds to build and sort.")
+    print("Red Black Binary Search Tree took " + str(finTime) + " Seconds to build and sort.")
     searchForWord(cFileRBBST)
 
 
