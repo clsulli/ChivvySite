@@ -1,11 +1,9 @@
-import BSNode
-
 class Tree():
 
     def __init__(self, root=None):
         self.root = root
 
-    def insert(self, iNode):
+    def insert(self,iNode):
 
         #DESCRIPTION
             #If BST is empty
@@ -14,8 +12,8 @@ class Tree():
                 # runs down the tree until reaching None, sets the parent of insert Node to be 1 level
                 # higher, then checks if iNode is less than or greater than parent and assigns it lChild or rChild
 
-        cNode = self.root
-        tNode = None
+        tNode = None #y
+        cNode = self.root#x
 
         while cNode != None:
 
@@ -39,8 +37,6 @@ class Tree():
         #     print("Added Child " + str(iNode.key) + " at Root")
         # else:
         #     print("Added Child " + str(iNode.key) + ": Parent" + str(iNode.parent.key))
-
-        return iNode
 
     def search(self, lookingFor):
         cNode = self.root

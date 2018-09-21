@@ -1,0 +1,60 @@
+{% extends 'base_dash.html' %}
+{% block title %}
+<title>Chivvy | Dashboard</title>
+{% endblock %}
+
+{% block content %}
+
+<div class="row  border-bottom white-bg dashboard-header" style="background-color: #fff;">
+
+    <div class="col-md-3">
+        <h2>Welcome {{ username }}</h2>
+        <small>You have 1 update from the Chivvy team.</small>
+        <ul class="list-group clear-list m-t">
+            <li class="list-group-item fist-item">
+                                <span class="float-right">
+                                    <i class="fa fa-check" style="color: #40ee2e;"></i>
+                                </span>
+                <span class="label label-success">1</span> Business Search From
+            </li>
+            <li class="list-group-item">
+                                <span class="float-right">
+                                    <i class="fa fa-check" style="color: #40ee2e;"></i>
+                                </span>
+                <span class="label label-info">2</span> User Log In's
+            </li>
+            <li class="list-group-item">
+                                <span class="float-right">
+                                    <i class="fa fa-strikethrough" style="color: #ee0029;"></i>
+                                </span>
+                <span class="label label-primary">3</span> Ability to Favorite Listings
+            </li>
+            <li class="list-group-item">
+                                <span class="float-right">
+                                    <i class="fa fa-strikethrough" style="color: #ee0029;"></i>
+                                </span>
+                <span class="label label-default">4</span> Host on AWS
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-9">
+        <div class="statistic-box">
+            <h3>Update from Chivvy.</h3>
+            <p>
+                Chivvy is a constant work in progress and a personal side project of mine. Chivvy's goal is
+                to provide web designers an easy and effective way to
+                generate leads faster and more efficiently.
+            </p>
+
+            <p>
+                Please post any feature ideas in the forum and report and bugs that you notice. I hope
+                Chivvy benefits you in some way and if it does please let me
+                know so I know what I am doing is useful! Thanks!
+            </p>
+        </div>
+    </div>
+
+
+</div>
+
+{% endblock %}
